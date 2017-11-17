@@ -421,7 +421,7 @@ Failed:
     free(body);
 }
 
-- (NSInteger)sendPacket:(unsigned int)nPacketType data:(unsigned char *)data size:(NSInteger)size nTimestamp:(uint64_t)nTimestamp {
+- (BOOL)sendPacket:(unsigned int)nPacketType data:(unsigned char *)data size:(NSInteger)size nTimestamp:(uint64_t)nTimestamp {
     NSInteger rtmpLength = size;
     PILI_RTMPPacket rtmp_pack;
     PILI_RTMPPacket_Reset(&rtmp_pack);
@@ -439,18 +439,18 @@ Failed:
     }
     rtmp_pack.m_nTimeStamp = (uint32_t)nTimestamp;
 
-    NSInteger nRet = [self RtmpPacketSend:&rtmp_pack];
+    BOOL nRet = [self RtmpPacketSend:&rtmp_pack];
 
     PILI_RTMPPacket_Free(&rtmp_pack);
     return nRet;
 }
 
-- (NSInteger)RtmpPacketSend:(PILI_RTMPPacket *)packet {
+- (BOOL)RtmpPacketSend:(PILI_RTMPPacket *)packet {
     if (_rtmp && PILI_RTMP_IsConnected(_rtmp)) {
-        int success = PILI_RTMP_SendPacket(_rtmp, packet, 0, &_error);
-        return success;
+        bool success = PILI_RTMP_SendPacket(_rtmp, packet, 0, &_error);
+        return (success == TRUE);
     }
-    return -1;
+    return NO;
 }
 
 - (void)sendAudioHeader:(LFAudioFrame *)audioFrame {
