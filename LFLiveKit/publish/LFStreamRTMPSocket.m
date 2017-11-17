@@ -121,7 +121,7 @@ SAVC(mp4a);
         PILI_RTMP_Close(_rtmp, &_error);
         PILI_RTMP_Free(_rtmp);
     }
-    [self RTMP264_Connect:(char *)[_stream.url cStringUsingEncoding:NSASCIIStringEncoding]];
+    [self RTMP264_Connect:_stream.url];
 }
 
 - (void)stop {
@@ -245,13 +245,14 @@ SAVC(mp4a);
     self.retryTimes4netWorkBreaken = 0;
 }
 
-- (NSInteger)RTMP264_Connect:(char *)push_url {
+- (NSInteger)RTMP264_Connect:(NSString *)url {
     //由于摄像头的timestamp是一直在累加，需要每次得到相对时间戳
     //分配与初始化
     _rtmp = PILI_RTMP_Alloc();
     PILI_RTMP_Init(_rtmp);
 
     //设置URL
+    const char * push_url = [url cStringUsingEncoding:NSASCIIStringEncoding];
     if (PILI_RTMP_SetupURL(_rtmp, push_url, &_error) == FALSE) {
         //log(LOG_ERR, "RTMP_SetupURL() failed!");
         goto Failed;
@@ -534,7 +535,7 @@ Failed:
         PILI_RTMP_Close(_rtmp, &_error);
         PILI_RTMP_Free(_rtmp);
     }
-    [self RTMP264_Connect:(char *)[_stream.url cStringUsingEncoding:NSASCIIStringEncoding]];
+    [self RTMP264_Connect:_stream.url];
 }
 
 #pragma mark -- CallBack
