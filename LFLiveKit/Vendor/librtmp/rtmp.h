@@ -83,7 +83,7 @@ extern "C"
     extern const AVal RTMP_DefaultFlashVer;
     extern int RTMP_ctrlC;
 
-    uint32_t RTMP_GetTime(void);
+    clock_t RTMP_GetTime(void);
 
     /*      RTMP_PACKET_TYPE_...                0x00 */
 #define RTMP_PACKET_TYPE_CHUNK_SIZE         0x01

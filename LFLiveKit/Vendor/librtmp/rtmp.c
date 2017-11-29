@@ -156,14 +156,14 @@ static int HTTP_Post(RTMP *r, RTMPTCmd cmd, const char *buf, int len);
 static int HTTP_read(RTMP *r, int fill);
 
 #if !defined(_WIN32) && !defined(_DEBUG)
-static int clk_tck;
+static long clk_tck;
 #endif
 
 #ifdef CRYPTO
 #include "handshake.h"
 #endif
 
-uint32_t
+clock_t
 RTMP_GetTime()
 {
 #ifdef _DEBUG
