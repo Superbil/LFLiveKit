@@ -45,6 +45,10 @@ typedef NS_ENUM (NSUInteger, LFLiveSocketErrorCode) {
 @property (nonatomic, assign) NSInteger port;
 #pragma mark -- RTMP
 @property (nonatomic, copy, nonnull) NSString *url;          ///< 上传地址 (RTMP用就好了)
+/* The authentication */
+@property (nonatomic, strong, nullable) NSString *user;
+@property (nonatomic, strong, nullable) NSString *password;
+@property (nonatomic, strong, nullable) NSString *flashVerion;
 ///音频配置
 @property (nonatomic, strong, nonnull) LFLiveAudioConfiguration *audioConfiguration;
 ///视频配置
