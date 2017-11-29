@@ -19,5 +19,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.compiler_flags = '-DNO_SSL', '-DNO_CRYPTO'
-  s.dependency 'openssl-ios-bitcode'
 end
