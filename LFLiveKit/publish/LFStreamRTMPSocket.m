@@ -259,8 +259,6 @@ SAVC(mp4a);
     _rtmp = RTMP_Alloc();
     RTMP_Init(_rtmp);
 
-    BOOL isAuthFlow = (_stream.user && _stream.password);
-
     //设置URL
     const char * push_url = [url cStringUsingEncoding:NSASCIIStringEncoding];
     if (RTMP_SetupURL(_rtmp, push_url) == FALSE) {
@@ -268,11 +266,15 @@ SAVC(mp4a);
         goto Failed;
     }
 
-    if (isAuthFlow) {
-        if (_stream.flashVerion) {
-            AVCFromNSString(_stream.flashVerion, _rtmp->Link.flashVer)
-        }
+    if (_stream.flashVerion) {
+        AVCFromNSString(_stream.flashVerion, _rtmp->Link.flashVer)
+    }
+
+    if (_stream.user) {
         AVCFromNSString(_stream.user, _rtmp->Link.pubUser)
+    }
+
+    if (_stream.password) {
         AVCFromNSString(_stream.password, _rtmp->Link.pubPasswd)
     }
 
