@@ -26,6 +26,10 @@ static const NSInteger RetryTimesMargin = 3;
 
 #define SAVC(x)    static const AVal av_ ## x = AVC(#x)
 
+#define AVCFromNSString(string, target) \
+target.av_val = (char *)[string cStringUsingEncoding:NSASCIIStringEncoding]; \
+target.av_len = (int)strlen((char *)[string cStringUsingEncoding:NSASCIIStringEncoding]);
+
 static const AVal av_setDataFrame = AVC("@setDataFrame");
 static const AVal av_SDKVersion = AVC("LFLiveKit 2.6.0");
 SAVC(onMetaData);
@@ -255,11 +259,21 @@ SAVC(mp4a);
     _rtmp = RTMP_Alloc();
     RTMP_Init(_rtmp);
 
+    BOOL isAuthFlow = (_stream.user && _stream.password);
+
     //设置URL
     const char * push_url = [url cStringUsingEncoding:NSASCIIStringEncoding];
     if (RTMP_SetupURL(_rtmp, push_url) == FALSE) {
         //log(LOG_ERR, "RTMP_SetupURL() failed!");
         goto Failed;
+    }
+
+    if (isAuthFlow) {
+        if (_stream.flashVerion) {
+            AVCFromNSString(_stream.flashVerion, _rtmp->Link.flashVer)
+        }
+        AVCFromNSString(_stream.user, _rtmp->Link.pubUser)
+        AVCFromNSString(_stream.password, _rtmp->Link.pubPasswd)
     }
 
     _rtmp->m_msgCounter = 1;
