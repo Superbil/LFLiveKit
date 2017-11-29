@@ -6,8 +6,8 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.authors      = { "chenliming" => "chenliming777@qq.com",
                      "Superbil" => "superbil@gmail.com"}
-  s.platform     = :ios, "7.0"
-  s.ios.deployment_target = "7.0"
+  s.platform     = :ios, "8.0"
+  s.ios.deployment_target = "8.0"
   s.source       = { :git => "https://github.com/Superbil/LFLiveKit.git", :tag => "#{s.version}" }
 
   s.source_files  = "LFLiveKit/**/*.{h,m,mm,cpp,c}"
