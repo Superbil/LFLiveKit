@@ -17,4 +17,7 @@ Pod::Spec.new do |s|
   s.libraries = "c++", "z"
 
   s.requires_arc = true
+
+  s.compiler_flags = '-DNO_SSL', '-DNO_CRYPTO'
+  s.dependency 'openssl-ios-bitcode'
 end
