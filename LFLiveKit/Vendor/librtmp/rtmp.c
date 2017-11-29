@@ -787,7 +787,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service, socklen_t addrlen)
             }
         }
 
-        uint64_t connect_start = os_gettime_ns();
+        uint64_t connect_start = RTMP_GetTime();
 
         if (connect(r->m_sb.sb_socket, service, addrlen) < 0)
         {
@@ -806,7 +806,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service, socklen_t addrlen)
             return FALSE;
         }
 
-        r->connect_time_ms = (int)((os_gettime_ns() - connect_start) / 1000000);
+        r->connect_time_ms = (int)((RTMP_GetTime() - connect_start) / 1000000);
 
         if (r->Link.socksport)
         {
