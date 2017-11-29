@@ -43,10 +43,8 @@ SAVC(audiocodecid);
 SAVC(audiodatarate);
 SAVC(audiosamplerate);
 SAVC(audiosamplesize);
-//SAVC(audiochannels);
 SAVC(stereo);
 SAVC(encoder);
-//SAVC(av_stereo);
 SAVC(fileSize);
 SAVC(avc1);
 SAVC(mp4a);
@@ -60,7 +58,7 @@ SAVC(mp4a);
 @property (nonatomic, strong) LFStreamingBuffer *buffer;
 @property (nonatomic, strong) LFLiveDebug *debugInfo;
 @property (nonatomic, strong) dispatch_queue_t rtmpSendQueue;
-//错误信息
+
 @property (nonatomic, assign) NSInteger retryTimes4netWorkBreaken;
 @property (nonatomic, assign) NSInteger reconnectInterval;
 @property (nonatomic, assign) NSInteger reconnectCount;
@@ -260,9 +258,8 @@ SAVC(mp4a);
     RTMP_Init(_rtmp);
 
     //设置URL
-    const char * push_url = [url cStringUsingEncoding:NSASCIIStringEncoding];
+    char * push_url = (char *)[url cStringUsingEncoding:NSASCIIStringEncoding];
     if (RTMP_SetupURL(_rtmp, push_url) == FALSE) {
-        //log(LOG_ERR, "RTMP_SetupURL() failed!");
         goto Failed;
     }
 
