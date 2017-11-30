@@ -10,7 +10,7 @@ LFLiveKit
 ![platform](https://img.shields.io/badge/platform-ios-ff69b4.svg)&nbsp;
 
 
-**LFLiveKit is a opensource RTMP streaming SDK for iOS.**  
+**LFLiveKit is a opensource RTMP streaming SDK for iOS.**
 
 ## Features
 
@@ -18,7 +18,7 @@ LFLiveKit
 - [x] 	Support horizontal vertical recording
 - [x] 	Support Beauty Face With GPUImage
 - [x] 	Support H264+AAC Hardware Encoding
-- [x] 	Drop frames on bad network 
+- [x] 	Drop frames on bad network
 - [x] 	Dynamic switching rate
 - [x] 	Audio configuration
 - [x] 	Video configuration
@@ -28,14 +28,15 @@ LFLiveKit
 - [x] 	Support Send Buffer
 - [x] 	Support WaterMark
 - [x] 	Swift Support
-- [x] 	Support Single Video or Audio 
+- [x] 	Support Single Video or Audio
 - [x] 	Support External input video or audio(Screen recording or Peripheral)
 - [ ] 	~~FLV package and send~~
 
 ## Requirements
-    - iOS 7.0+
+
+    - iOS 8.0+
     - Xcode 7.3
-  
+
 ## Installation
 
 #### CocoaPods
@@ -44,7 +45,7 @@ LFLiveKit
 	source 'https://github.com/CocoaPods/Specs.git'
 	platform :ios, '7.0'
 	pod 'LFLiveKit'
-	
+
 	# Then, run the following command:
 	$ pod install
 
@@ -67,8 +68,8 @@ LFLiveKit
         * AudioToolbox
         * libz
         * libstdc++
-	
-## Usage example 
+
+## Usage example
 
 #### Objective-C
 ```objc
@@ -81,7 +82,7 @@ LFLiveKit
 	return _session;
 }
 
-- (void)startLive {	
+- (void)startLive {
 	LFLiveStreamInfo *streamInfo = [LFLiveStreamInfo new];
 	streamInfo.url = @"your server rtmp url";
 	[self.session startLive:streamInfo];
@@ -99,21 +100,21 @@ LFLiveKit
 #### Swift
 ```swift
 // import LFLiveKit in [ProjectName]-Bridging-Header.h
-#import <LFLiveKit.h> 
+#import <LFLiveKit.h>
 
 //MARK: - Getters and Setters
 lazy var session: LFLiveSession = {
 	let audioConfiguration = LFLiveAudioConfiguration.defaultConfiguration()
 	let videoConfiguration = LFLiveVideoConfiguration.defaultConfigurationForQuality(LFLiveVideoQuality.Low3, landscape: false)
 	let session = LFLiveSession(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)
-	    
+
 	session?.delegate = self
 	session?.preView = self.view
 	return session!
 }()
 
 //MARK: - Event
-func startLive() -> Void { 
+func startLive() -> Void {
 	let stream = LFLiveStreamInfo()
 	stream.url = "your server rtmp url";
 	session.startLive(stream)
@@ -124,7 +125,7 @@ func stopLive() -> Void {
 }
 
 //MARK: - Callback
-func liveSession(session: LFLiveSession?, debugInfo: LFLiveDebug?) 
+func liveSession(session: LFLiveSession?, debugInfo: LFLiveDebug?)
 func liveSession(session: LFLiveSession?, errorCode: LFLiveSocketErrorCode)
 func liveSession(session: LFLiveSession?, liveStateDidChange state: LFLiveState)
 ```
@@ -134,8 +135,12 @@ func liveSession(session: LFLiveSession?, liveStateDidChange state: LFLiveState)
         * CHANGE: modify bugs,support ios7 live.
     * 2.2.4.3
         * CHANGE: modify bugs,support swift import.
-    * 2.5 
+    * 2.5
         * CHANGE: modify bugs,support bitcode.
+    * 2.6
+        * CHANGE: modify bugs, support swift 3
+    * 2.7
+        * CHANGE: modify bugs, rtmp support authentication
 
 
 ## License
