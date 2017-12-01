@@ -26,10 +26,6 @@ static const NSInteger RetryTimesMargin = 3;
 
 #define SAVC(x)    static const AVal av_ ## x = AVC(#x)
 
-#define AVCFromNSString(string, target) \
-target.av_val = (char *)[string cStringUsingEncoding:NSASCIIStringEncoding]; \
-target.av_len = (int)strlen((char *)[string cStringUsingEncoding:NSASCIIStringEncoding]);
-
 static const AVal av_setDataFrame = AVC("@setDataFrame");
 static const AVal av_SDKVersion = AVC("LFLiveKit 2.6.0");
 SAVC(onMetaData);
@@ -93,7 +89,7 @@ SAVC(mp4a);
         [self addObserver:self forKeyPath:@"isSending" options:NSKeyValueObservingOptionNew context:nil];//这里改成observer主要考虑一直到发送出错情况下，可以继续发送
 
 #if DEBUG
-        RTMP_LogSetLevel(RTMP_LOGDEBUG);
+        RTMP_LogSetLevel(RTMP_LOGDEBUG2);
 #endif
     }
     return self;
@@ -264,15 +260,22 @@ SAVC(mp4a);
     }
 
     if (_stream.flashVerion) {
-        AVCFromNSString(_stream.flashVerion, _rtmp->Link.flashVer)
+        char * flashVersion = (char *)[_stream.flashVerion cStringUsingEncoding:NSASCIIStringEncoding];
+        _rtmp->Link.flashVer.av_val = flashVersion;
+        _rtmp->Link.flashVer.av_len = (int)strlen(flashVersion);
     }
 
     if (_stream.user) {
-        AVCFromNSString(_stream.user, _rtmp->Link.pubUser)
+        char * user = (char *)[_stream.user cStringUsingEncoding:NSASCIIStringEncoding];
+        _rtmp->Link.pubUser.av_val = user;
+        _rtmp->Link.pubUser.av_len = (int)strlen(user);
+
     }
 
     if (_stream.password) {
-        AVCFromNSString(_stream.password, _rtmp->Link.pubPasswd)
+        char * passwd = (char *)[_stream.password cStringUsingEncoding:NSASCIIStringEncoding];
+        _rtmp->Link.pubPasswd.av_val = passwd;
+        _rtmp->Link.pubPasswd.av_len = (int)strlen(passwd);
     }
 
     _rtmp->m_msgCounter = 1;
