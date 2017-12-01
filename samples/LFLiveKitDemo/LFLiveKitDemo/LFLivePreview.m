@@ -115,26 +115,33 @@ inline static NSString *formatedSpeed(float bytes, float elapsed_milli) {
 #pragma mark -- LFStreamingSessionDelegate
 /** live status changed will callback */
 - (void)liveSession:(nullable LFLiveSession *)session liveStateDidChange:(LFLiveState)state {
-    NSLog(@"liveStateDidChange: %ld", state);
+    NSString *stateString;
     switch (state) {
-    case LFLiveReady:
-        _stateLabel.text = @"未连接";
-        break;
-    case LFLivePending:
-        _stateLabel.text = @"连接中";
-        break;
-    case LFLiveStart:
-        _stateLabel.text = @"已连接";
-        break;
-    case LFLiveError:
-        _stateLabel.text = @"连接错误";
-        break;
-    case LFLiveStop:
-        _stateLabel.text = @"未连接";
+        case LFLiveReady:
+            _stateLabel.text = @"Not connect";
+            stateString = @"Ready";
+            break;
+        case LFLivePending:
+            _stateLabel.text = @"Connecting";
+            stateString = @"Pending";
+            break;
+        case LFLiveStart:
+            _stateLabel.text = @"Connect";
+            stateString = @"Start";
+            break;
+        case LFLiveError:
+            _stateLabel.text = @"Connect Error";
+            stateString = @"Error";
+            break;
+        case LFLiveStop:
+            _stateLabel.text = @"Connect Stop";
+            stateString = @"Stop";
         break;
     default:
         break;
     }
+
+    NSLog(@"liveStateDidChange: %ld %@", state, stateString);
 }
 
 /** live debug info callback */
@@ -151,22 +158,23 @@ inline static NSString *formatedSpeed(float bytes, float elapsed_milli) {
 - (LFLiveSession *)session {
     if (!_session) {
         /**      发现大家有不会用横屏的请注意啦，横屏需要在ViewController  supportedInterfaceOrientations修改方向  默认竖屏  ****/
-        /**      发现大家有不会用横屏的请注意啦，横屏需要在ViewController  supportedInterfaceOrientations修改方向  默认竖屏  ****/
-        /**      发现大家有不会用横屏的请注意啦，横屏需要在ViewController  supportedInterfaceOrientations修改方向  默认竖屏  ****/
 
 
         /***   默认分辨率368 ＊ 640  音频：44.1 iphone6以上48  双声道  方向竖屏 ***/
-        LFLiveVideoConfiguration *videoConfiguration = [LFLiveVideoConfiguration new];
-        videoConfiguration.videoSize = CGSizeMake(640, 360);
-        videoConfiguration.videoBitRate = 800*1024;
-        videoConfiguration.videoMaxBitRate = 1000*1024;
-        videoConfiguration.videoMinBitRate = 500*1024;
-        videoConfiguration.videoFrameRate = 24;
-        videoConfiguration.videoMaxKeyframeInterval = 48;
-        videoConfiguration.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
-        videoConfiguration.autorotate = NO;
-        videoConfiguration.sessionPreset = LFCaptureSessionPreset720x1280;
-        _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration] videoConfiguration:videoConfiguration captureType:LFLiveCaptureDefaultMask];
+//        LFLiveVideoConfiguration *videoConfiguration = [LFLiveVideoConfiguration new];
+//        videoConfiguration.videoSize = CGSizeMake(640, 360);
+//        videoConfiguration.videoBitRate = 800*1024;
+//        videoConfiguration.videoMaxBitRate = 1000*1024;
+//        videoConfiguration.videoMinBitRate = 500*1024;
+//        videoConfiguration.videoFrameRate = 24;
+//        videoConfiguration.videoMaxKeyframeInterval = 48;
+//        videoConfiguration.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
+//        videoConfiguration.autorotate = NO;
+//        videoConfiguration.sessionPreset = LFCaptureSessionPreset720x1280;
+//        _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration] videoConfiguration:videoConfiguration captureType:LFLiveCaptureDefaultMask];
+        _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration]
+                                                  videoConfiguration:[LFLiveVideoConfiguration defaultConfigurationForQuality:LFLiveVideoQuality_Default]];
+
 
         /**    自己定制单声道  */
         /*
@@ -359,7 +367,7 @@ inline static NSString *formatedSpeed(float bytes, float elapsed_milli) {
             if (_self.startLiveButton.selected) {
                 [_self.startLiveButton setTitle:@"结束直播" forState:UIControlStateNormal];
                 LFLiveStreamInfo *stream = [LFLiveStreamInfo new];
-                stream.url = @"rtmp://live.hkstv.hk.lxdns.com:1935/live/stream153";
+                stream.url = @"rtmp://<Your push url>";
                 [_self.session startLive:stream];
             } else {
                 [_self.startLiveButton setTitle:@"开始直播" forState:UIControlStateNormal];
