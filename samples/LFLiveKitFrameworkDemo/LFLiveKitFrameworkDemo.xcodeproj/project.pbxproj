@@ -75,7 +75,6 @@
 		8495F6C21DB8F37300542124 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8495F6C81DB8F37E00542124 /* LFLiveKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LFLiveKit.xcodeproj; path = ../../FrameWork/LFLiveKit.xcodeproj; sourceTree = "<group>"; };
 		8495F6D51DB8F49800542124 /* GPUImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GPUImage.framework; path = vendors/GPUImage.framework; sourceTree = "<group>"; };
-		8495F6D61DB8F49800542124 /* pili-librtmp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "pili-librtmp.framework"; path = "vendors/pili-librtmp.framework"; sourceTree = "<group>"; };
 		84D003461DB8F7FA00560583 /* UIControl+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+YYAdd.h"; sourceTree = "<group>"; };
 		84D003471DB8F7FA00560583 /* UIControl+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+YYAdd.m"; sourceTree = "<group>"; };
 		84D003481DB8F7FA00560583 /* UIView+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YYAdd.h"; sourceTree = "<group>"; };
@@ -189,7 +188,6 @@
 				84D003651DB8F84000560583 /* libresolv.tbd */,
 				84D003631DB8F83400560583 /* libstdc++.tbd */,
 				8495F6D51DB8F49800542124 /* GPUImage.framework */,
-				8495F6D61DB8F49800542124 /* pili-librtmp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
