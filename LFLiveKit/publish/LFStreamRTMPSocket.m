@@ -67,6 +67,13 @@ SAVC(mp4a);
 
 @implementation LFStreamRTMPSocket
 
+static inline void set_rtmp_str(AVal *val, const char *str)
+{
+    bool valid  = (str && *str);
+    val->av_val = valid ? (char*)str       : NULL;
+    val->av_len = valid ? (int)strlen(str) : 0;
+}
+
 #pragma mark -- LFStreamSocket
 - (nullable instancetype)initWithStream:(nullable LFLiveStreamInfo *)stream{
     return [self initWithStream:stream reconnectInterval:0 reconnectCount:0];
@@ -255,24 +262,9 @@ SAVC(mp4a);
         goto Failed;
     }
 
-    if (_stream.flashVerion) {
-        char * flashVersion = (char *)[_stream.flashVerion cStringUsingEncoding:NSASCIIStringEncoding];
-        _rtmp->Link.flashVer.av_val = flashVersion;
-        _rtmp->Link.flashVer.av_len = (int)strlen(flashVersion);
-    }
-
-    if (_stream.user) {
-        char * user = (char *)[_stream.user cStringUsingEncoding:NSASCIIStringEncoding];
-        _rtmp->Link.pubUser.av_val = user;
-        _rtmp->Link.pubUser.av_len = (int)strlen(user);
-
-    }
-
-    if (_stream.password) {
-        char * passwd = (char *)[_stream.password cStringUsingEncoding:NSASCIIStringEncoding];
-        _rtmp->Link.pubPasswd.av_val = passwd;
-        _rtmp->Link.pubPasswd.av_len = (int)strlen(passwd);
-    }
+    set_rtmp_str(&_rtmp->Link.flashVer, [_stream.flashVerion cStringUsingEncoding:NSASCIIStringEncoding]);
+    set_rtmp_str(&_rtmp->Link.pubUser, [_stream.user cStringUsingEncoding:NSASCIIStringEncoding]);
+    set_rtmp_str(&_rtmp->Link.pubPasswd, [_stream.password cStringUsingEncoding:NSASCIIStringEncoding]);
 
     _rtmp->m_msgCounter = 1;
     _rtmp->Link.timeout = RTMP_RECEIVE_TIMEOUT;
