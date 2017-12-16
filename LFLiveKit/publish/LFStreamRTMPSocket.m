@@ -68,6 +68,13 @@ SAVC(mp4a);
 
 @implementation LFStreamRTMPSocket
 
+static inline void set_rtmp_str(AVal *val, const char *str)
+{
+    bool valid  = (str && *str);
+    val->av_val = valid ? (char*)str       : NULL;
+    val->av_len = valid ? (int)strlen(str) : 0;
+}
+
 #pragma mark -- LFStreamSocket
 - (nullable instancetype)initWithStream:(nullable LFLiveStreamInfo *)stream{
     return [self initWithStream:stream reconnectInterval:0 reconnectCount:0];
@@ -260,6 +267,11 @@ SAVC(mp4a);
     _rtmp->m_errorCallback = RTMPErrorCallback;
     _rtmp->m_connCallback = ConnectionTimeCallback;
     _rtmp->m_userData = (__bridge void *)self;
+
+    set_rtmp_str(&_rtmp->Link.flashVer, [_stream.flashVerion cStringUsingEncoding:NSASCIIStringEncoding]);
+    set_rtmp_str(&_rtmp->Link.pubUser, [_stream.user cStringUsingEncoding:NSASCIIStringEncoding]);
+    set_rtmp_str(&_rtmp->Link.pubPasswd, [_stream.password cStringUsingEncoding:NSASCIIStringEncoding]);
+
     _rtmp->m_msgCounter = 1;
     _rtmp->Link.timeout = RTMP_RECEIVE_TIMEOUT;
     
