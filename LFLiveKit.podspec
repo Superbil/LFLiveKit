@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LFLiveKit"
-  s.version      = "2.6"
+  s.version      = "2.8"
   s.summary      = "LaiFeng iOS Live. LFLiveKit."
   s.homepage     = "https://github.com/Superbil/LFLiveKit"
   s.license      = { :type => "MIT", :file => "LICENSE" }
