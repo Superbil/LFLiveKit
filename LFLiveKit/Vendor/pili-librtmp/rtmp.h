@@ -135,6 +135,8 @@ typedef struct PILI_RTMP_LNK {
     AVal flashVer;
     AVal subscribepath;
     AVal token;
+    AVal pubUser;
+    AVal pubPasswd;
     AMFObject extras;
     int edepth;
 
