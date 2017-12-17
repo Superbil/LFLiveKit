@@ -272,6 +272,9 @@ static inline void set_rtmp_str(AVal *val, const char *str)
     //设置可写，即发布流，这个函数必须在连接前使用，否则无效
     RTMP_EnableWrite(_rtmp);
 
+    RTMP_AddStream(_rtmp, "avc1");
+    RTMP_AddStream(_rtmp, "mp4a");
+
     //连接服务器
     if (RTMP_Connect(_rtmp, NULL) == FALSE) {
         goto Failed;
