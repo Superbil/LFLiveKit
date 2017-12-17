@@ -27,7 +27,7 @@
 int RTMP_ParseURL(const char *url, int *protocol, AVal *host, unsigned int *port,
                   AVal *app)
 {
-    char *p, *end, *col, /* *ques, */ *slash, *v6;
+    char *p, *end, *col, *ques, *slash, *v6;
 
     RTMP_Log(RTMP_LOGDEBUG, "Parsing...");
 
@@ -84,7 +84,7 @@ parsehost:
 
     end   = p + strlen(p);
     v6    = strchr(p, ']');
-    // ques  = strchr(p, '?');
+    ques  = strchr(p, '?');
     slash = strchr(p, '/');
     col   = strchr((v6 && v6 < slash) ? v6 : p, ':');
 
@@ -134,15 +134,44 @@ parsehost:
     }
     p = slash+1;
 
-    //just..  whatever.
-    app->av_val = p;
-    app->av_len = (int)strlen(p);
+    {
+        /* parse application
+         *
+         * rtmp://host[:port]/app[/appinstance][/...]
+         * application = app[/appinstance]
+         */
 
-    if(app->av_len && p[app->av_len-1] == '/')
-        app->av_len--;
+        char *slash2, *slash3 = NULL;
+        int applen, appnamelen;
 
-    RTMP_Log(RTMP_LOGDEBUG, "Parsed app     : %.*s", app->av_len, p);
-    p += app->av_len;
+        slash2 = strchr(p, '/');
+        if (slash2)
+            slash3 = strchr(slash2 + 1, '/');
+
+        applen = end - p; /* ondemand, pass all parameters as app */
+        appnamelen = applen; /* ondemand length */
+
+        if (ques && strstr(p, "slist=")) { /* whatever it is, the '?' and slist= means we need to use everything as app and parse plapath from slist= */
+            appnamelen = ques - p;
+        } else if (strncmp(p, "ondemand/", 9) == 0) {
+            /* app = ondemand/foobar, only pass app=ondemand */
+            applen = 8;
+            appnamelen = 8;
+        } else { /* app!=ondemand, so app is app[/appinstance] */
+            if (slash3)
+                appnamelen = slash3 - p;
+            else if (slash2)
+                appnamelen = slash2 - p;
+
+            applen = appnamelen;
+        }
+
+        app->av_val = p;
+        app->av_len = applen;
+        RTMP_Log(RTMP_LOGDEBUG, "Parsed app     : %.*s", applen, p);
+
+        p += appnamelen;
+    }
 
     if (*p == '/')
         p++;
