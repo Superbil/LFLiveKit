@@ -3926,9 +3926,6 @@ void PILI_RTMP_Close(PILI_RTMP *r, RTMPError *error) {
     r->m_resplen = 0;
     r->m_unackd = 0;
 
-    free(r->Link.playpath0.av_val);
-    r->Link.playpath0.av_val = NULL;
-
     if (r->Link.lFlags & RTMP_LF_FTCU) {
         free(r->Link.tcUrl.av_val);
         r->Link.tcUrl.av_val = NULL;
