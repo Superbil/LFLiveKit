@@ -2545,18 +2545,18 @@ PublisherAuth(PILI_RTMP *r, AVal *description)
         ptr = malloc(r->Link.app.av_len + pubToken.av_len);
         strncpy(ptr, r->Link.app.av_val, r->Link.app.av_len);
         strncpy(ptr + r->Link.app.av_len, pubToken.av_val, pubToken.av_len);
-        r->Link.app.av_len += pubToken.av_len;
         if(r->Link.pFlags & RTMP_PUB_ALLOC)
             free(r->Link.app.av_val);
         r->Link.app.av_val = ptr;
+        r->Link.app.av_len = (int)strlen(ptr);
 
         ptr = malloc(r->Link.tcUrl.av_len + pubToken.av_len);
         strncpy(ptr, r->Link.tcUrl.av_val, r->Link.tcUrl.av_len);
         strncpy(ptr + r->Link.tcUrl.av_len, pubToken.av_val, pubToken.av_len);
-        r->Link.tcUrl.av_len += pubToken.av_len;
         if(r->Link.pFlags & RTMP_PUB_ALLOC)
             free(r->Link.tcUrl.av_val);
         r->Link.tcUrl.av_val = ptr;
+        r->Link.tcUrl.av_len = (int)strlen(ptr);
 
         free(pubToken.av_val);
         r->Link.pFlags |= RTMP_PUB_ALLOC;
