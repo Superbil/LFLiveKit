@@ -133,12 +133,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D8B49A1D757D4000752B56 /* Build configuration list for PBXNativeTarget "LFLiveKitSwiftDemo" */;
 			buildPhases = (
+				D989214F7898C0617FFBAE2F /* [CP] Check Pods Manifest.lock */,
 				FC46EAD69B9F095AB7372DB6 /* 📦 Check Pods Manifest.lock */,
 				84D8B4841D757D4000752B56 /* Sources */,
 				84D8B4851D757D4000752B56 /* Frameworks */,
 				84D8B4861D757D4000752B56 /* Resources */,
 				951756CA4F11963EE3622ADB /* 📦 Embed Pods Frameworks */,
 				1D8289CE7990A09D5E67FA15 /* 📦 Copy Pods Resources */,
+				BC151859B4FF450C6571A491 /* [CP] Embed Pods Frameworks */,
+				8A949B321FB2B97CA3EC5F67 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -221,6 +224,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LFLiveKitSwiftDemo/Pods-LFLiveKitSwiftDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8A949B321FB2B97CA3EC5F67 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LFLiveKitSwiftDemo/Pods-LFLiveKitSwiftDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		951756CA4F11963EE3622ADB /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +252,42 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LFLiveKitSwiftDemo/Pods-LFLiveKitSwiftDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC151859B4FF450C6571A491 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LFLiveKitSwiftDemo/Pods-LFLiveKitSwiftDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LFLiveKit/LFLiveKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LFLiveKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LFLiveKitSwiftDemo/Pods-LFLiveKitSwiftDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D989214F7898C0617FFBAE2F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LFLiveKitSwiftDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FC46EAD69B9F095AB7372DB6 /* 📦 Check Pods Manifest.lock */ = {
