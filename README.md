@@ -140,8 +140,9 @@ func liveSession(session: LFLiveSession?, liveStateDidChange state: LFLiveState)
     * 2.6
         * CHANGE: modify bugs, support swift 3
     * 2.7
-        * CHANGE: modify bugs, rtmp support authentication
-
+        * CHANGE: modify bugs, rtmp support authentication basic on obs-librtmp
+    * 2.8
+        * CHANGE: modify bugs, rtmp support authentication basic on pili-librtmp
 
 ## License
  **LFLiveKit is released under the MIT license. See LICENSE for details.**
